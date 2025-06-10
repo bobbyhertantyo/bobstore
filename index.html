@@ -46,6 +46,7 @@
 
   /* Container */
   .container {
+    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
@@ -66,8 +67,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.75rem 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    flex-wrap: wrap;
   }
   .logo {
     font-weight: 700;
@@ -77,14 +77,19 @@
   }
   .nav-links {
     display: flex;
-    gap: 1.75rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-grow: 1;
+    align-items: center;
   }
   .nav-links a {
     font-weight: 600;
     font-size: 1rem;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 1rem;
     border-radius: var(--radius);
     transition: background-color var(--transition-fast), color var(--transition-fast);
+    white-space: nowrap;
   }
   .nav-links a:hover,
   .nav-links a:focus {
@@ -94,7 +99,7 @@
 
   /* Hero Section */
   section.hero {
-    padding: 6rem 1rem 6rem;
+    padding: 5rem 1rem 6rem;
     text-align: center;
     background: linear-gradient(135deg, #0071e3 0%, #00408a 100%);
     color: white;
@@ -104,14 +109,14 @@
     max-width: 900px;
   }
   .hero h1 {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     font-weight: 800;
     margin-bottom: 1rem;
     line-height: 1.1;
     text-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
   .hero p {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 500;
     margin-bottom: 2.5rem;
     opacity: 0.9;
@@ -127,6 +132,7 @@
     box-shadow: 0 8px 15px rgba(255 255 255 / 0.4);
     border: none;
     transition: background-color var(--transition-fast), color var(--transition-fast), transform 0.3s cubic-bezier(.4,0,.2,1);
+    min-width: 160px;
   }
   .btn-primary:hover,
   .btn-primary:focus {
@@ -138,7 +144,7 @@
 
   /* Generic Section Style */
   section {
-    padding: 5rem 1rem 5rem;
+    padding: 4rem 0 5rem;
   }
   section .container {
     max-width: 1200px;
@@ -152,7 +158,7 @@
   }
   p.section-subtitle {
     max-width: 600px;
-    margin: 0 auto 4rem auto;
+    margin: 0 auto 3.5rem auto;
     color: var(--color-muted);
     font-weight: 500;
     text-align: center;
@@ -164,7 +170,7 @@
   .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-    gap: 2.5rem;
+    gap: 2rem 1.5rem;
   }
   .feature-card {
     background: white;
@@ -173,6 +179,7 @@
     padding: 2rem;
     text-align: center;
     transition: box-shadow 0.3s ease;
+    cursor: default;
   }
   .feature-card:hover {
     box-shadow: 0 12px 25px var(--shadow-medium);
@@ -197,16 +204,15 @@
 
   /* Product Showcase */
   .product-showcase {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    gap: 2rem;
     justify-content: center;
-    gap: 3rem;
   }
   .product-card {
     background: white;
     border-radius: var(--radius);
     box-shadow: 0 6px 15px var(--shadow-light);
-    max-width: 300px;
     padding: 1.5rem;
     text-align: center;
     transition: box-shadow 0.3s ease;
@@ -247,6 +253,11 @@
     padding: 2rem;
     position: relative;
     font-style: italic;
+    outline-offset: 3px;
+    cursor: default;
+  }
+  .testimonial:focus {
+    box-shadow: 0 0 0 3px var(--color-primary);
   }
   .testimonial::before {
     content: "“";
@@ -288,6 +299,7 @@
     padding: 2rem;
     text-align: center;
     transition: box-shadow 0.3s ease;
+    cursor: default;
   }
   .pricing-card:hover {
     box-shadow: 0 12px 30px var(--shadow-medium);
@@ -324,6 +336,7 @@
     color: var(--color-primary);
     font-size: 1.125rem;
     transition: background-color var(--transition-fast), color var(--transition-fast), transform 0.3s cubic-bezier(.4,0,.2,1);
+    min-width: 160px;
   }
   .pricing-card .btn-secondary:hover,
   .pricing-card .btn-secondary:focus {
@@ -379,6 +392,7 @@
     box-shadow: 0 6px 15px var(--shadow-light);
     padding: 1.5rem;
     text-align: center;
+    cursor: default;
   }
   .spec-item h5 {
     font-weight: 600;
@@ -407,6 +421,9 @@
   .faq-item:hover {
     box-shadow: 0 12px 25px var(--shadow-medium);
   }
+  .faq-item.active {
+    box-shadow: 0 12px 25px var(--shadow-medium);
+  }
   .faq-question {
     font-weight: 700;
     font-size: 1.125rem;
@@ -431,7 +448,7 @@
     padding: 4rem 2rem;
     border-radius: var(--radius);
     max-width: 900px;
-    margin: 0 auto;
+    margin: 0 auto 4rem auto;
     box-shadow: 0 12px 30px rgba(0,0,0,0.3);
   }
   .final-cta h2 {
@@ -447,66 +464,88 @@
   .final-cta .btn-primary {
     font-size: 1.5rem;
     padding: 1.25rem 3rem;
+    min-width: 220px;
   }
 
-  /* Responsive Text Scaling */
-  @media (max-width: 768px) {
+  /* Scroll slide animations */
+  .scroll-slide {
+    opacity: 0;
+    transform: translateX(var(--scroll-slide-x, 0)) translateY(var(--scroll-slide-y, 0));
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  .scroll-slide.active {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+  /* Slide directions */
+  .slide-in-left {
+    --scroll-slide-x: -40px;
+  }
+  .slide-in-right {
+    --scroll-slide-x: 40px;
+  }
+  .slide-in-up {
+    --scroll-slide-y: 20px;
+  }
+
+  /* Responsive Typography & Layout */
+  @media (max-width: 1024px) {
     .hero h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
     h2.section-title {
-      font-size: 2rem;
+      font-size: 2.25rem;
     }
     .pricing-card .price {
       font-size: 2rem;
     }
     .final-cta h2 {
+      font-size: 2.25rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
       font-size: 2rem;
     }
-  }
+    h2.section-title {
+      font-size: 1.75rem;
+    }
+    .pricing-card .price {
+      font-size: 1.75rem;
+    }
+    .final-cta h2 {
+      font-size: 1.75rem;
+    }
 
-  /* Additional Responsive Layout Enhancements */
-  @media (max-width: 900px) {
     nav {
       padding: 0.75rem 0.5rem;
-    }
-    .nav-links {
-      gap: 1rem;
-      flex-wrap: wrap;
       justify-content: center;
-    }
-  }
-
-  @media (max-width: 600px) {
-    nav {
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 0.75rem;
-    }
-    .logo {
-      font-size: 1.25rem;
+      gap: 1rem;
     }
     .nav-links {
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
-      max-width: 300px;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-basis: 100%;
     }
-    .nav-links a {
-      padding: 0.75rem 1rem;
-      font-size: 1.125rem;
-      text-align: center;
+
+    /* Ensure primary CTA fills width on small tablets */
+    .btn-primary,
+    .pricing-card .btn-secondary {
       width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      min-width: auto;
     }
   }
 
   @media (max-width: 480px) {
     section.hero {
-      padding: 4rem 1rem 4rem;
+      padding: 3rem 1rem 4rem;
     }
     .hero h1 {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       margin-bottom: 0.75rem;
     }
     .hero p {
@@ -516,13 +555,30 @@
     .btn-primary {
       padding: 0.75rem 1.5rem;
       font-size: 1rem;
+      min-width: auto;
+      width: 100%;
     }
-    .product-showcase {
-      gap: 1.5rem;
+    nav {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 0.75rem;
     }
-    .product-card {
-      max-width: 100%;
-      padding: 1rem;
+    .logo {
+      font-size: 1.25rem;
+      margin-bottom: 0;
+    }
+    .nav-links {
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 320px;
+    }
+    .nav-links a {
+      padding: 0.75rem 1rem;
+      font-size: 1.125rem;
+      text-align: center;
+      width: 100%;
     }
     h2.section-title {
       font-size: 1.5rem;
@@ -532,26 +588,32 @@
       font-size: 1rem;
       margin-bottom: 2rem;
     }
+
+    /* Stack grids vertically on small screens */
     .features-grid,
+    .product-showcase,
     .pricing-cards,
     .accessories-grid,
     .specs-list {
       grid-template-columns: 1fr !important;
       gap: 1.5rem;
     }
-    .pricing-card .btn-secondary,
-    .btn-primary,
-    .nav-links a.btn-primary {
+    .pricing-card .btn-secondary {
+      font-size: 1rem;
+      padding: 0.75rem;
+      min-width: auto;
       width: 100%;
-      padding-left: 0;
-      padding-right: 0;
     }
   }
 </style>
 </head>
 <body>
 
-
+<header>
+  <nav class="container" aria-label="Primary Navigation">
+    <div class="logo" tabindex="0">Bobstore</div>
+  </nav>
+</header>
 
 <section class="hero" id="hero" role="banner">
   <div class="container">
@@ -563,26 +625,26 @@
 </section>
 
 <section id="features" aria-label="Key Features">
-  <h2 class="section-title">iPhone Bukan Hanya Smartphone, Ini Pengalaman.</h2>
-  <p class="section-subtitle">
+  <h2 class="section-title scroll-slide slide-in-left">iPhone Bukan Hanya Smartphone, Ini Pengalaman.</h2>
+  <p class="section-subtitle scroll-slide slide-in-right">
     Temukan inovasi yang mengubah segalanya. Dari kamera terdepan hingga chip revolusioner, iPhone dirancang untuk menghadirkan pengalaman terbaik di setiap sentuhan. Pilih keunggulan. Pilih iPhone.</p>
   <div class="container features-grid" role="list">
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="Super Retina Display">
+    <article class="feature-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="Super Retina Display">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><line x1="16" y1="3" x2="8" y2="3"></line><line x1="12" y1="7" x2="12" y2="21"></line></svg>
       <h3>Display</h3>
       <p>Retina Display dan Super Retina XDR: Apple memperkenalkan istilah "Retina Display" untuk layar dengan kepadatan piksel yang sangat tinggi, sehingga mata manusia tidak dapat membedakan piksel individual pada jarak pandang normal. Model iPhone modern menggunakan Super Retina XDR Display, yang merupakan panel OLED khusus dengan resolusi tinggi, kecerahan luar biasa (terutama untuk konten HDR), rasio kontras yang sangat tinggi (hitam pekat sempurna), dan akurasi warna yang tak tertandingi. Ini membuat gambar dan video terlihat sangat tajam, detail, dan hidup.</p>
     </article>
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="A15 Bionic Chip">
+    <article class="feature-card scroll-slide slide-in-right" role="listitem" tabindex="0" aria-label="A15 Bionic Chip">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
       <h3>Chipset</h3>
       <p>Performa Unggul: iPhone menggunakan chipset seri A (misalnya A17 Pro, A16 Bionic) yang dirancang khusus oleh Apple. Chipset ini terkenal sangat cepat dan efisien dibandingkan chipset Android, bahkan sering kali mengungguli kompetitor dalam pengujian benchmark seperti Geekbench.</p>
     </article>
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="Advanced Camera System">
+    <article class="feature-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="Advanced Camera System">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M2 12a10 10 0 0120 0"></path></svg>
       <h3>Kamera</h3>
       <p>Konsistensi Hasil: Dalam berbagai kondisi, baik siang hari yang cerah maupun malam hari dengan minim cahaya, iPhone cenderung menghasilkan foto dan video dengan kualitas yang stabil dan konsisten.</p>
     </article>
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="Long Battery Life">
+    <article class="feature-card scroll-slide slide-in-right" role="listitem" tabindex="0" aria-label="Long Battery Life">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2" ry="2"></rect><line x1="12" y1="7" x2="12" y2="17"></line></svg>
       <h3>Baterai</h3>
       <p>Manajemen Baterai Cerdas: iOS memiliki sistem manajemen baterai yang cerdas yang membantu memperpanjang umur baterai. Fitur seperti "Optimized Battery Charging" membantu mengurangi keausan baterai dengan mempelajari pola pengisian daya pengguna.</p>
@@ -591,20 +653,20 @@
 </section>
 
 <section id="products" aria-label="Product Models">
-  <h2 class="section-title">Our Models</h2>
-  <p class="section-subtitle">Choose the perfect iPhone model that fits your style and needs.</p>
+  <h2 class="section-title scroll-slide slide-in-left">Our Models</h2>
+  <p class="section-subtitle scroll-slide slide-in-right">Choose the perfect iPhone model that fits your style and needs.</p>
   <div class="container product-showcase" role="list">
-    <article class="product-card" role="listitem" tabindex="0" aria-label="iPhone 14 Pro">
+    <article class="product-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="iPhone 14 Pro">
       <img src="13pm.jpg" alt="iPhone 13 ProMax" />
       <h4>iPhone 13 ProMax 128 gb inter Second Like New</h4>
       <p>Kondisi Nominus, Kelengkapan Fullset, Battery Health 91, Face Id Truetone on</p>
     </article>
-    <article class="product-card" role="listitem" tabindex="0" aria-label="iPhone 14">
+    <article class="product-card scroll-slide slide-in-right" role="listitem" tabindex="0" aria-label="iPhone 14">
       <img src="15 pro.jpg" alt="iPhone 15 pro" />
       <h4>iPhone 15 pro 128 gb ibox Second Like New</h4>
       <p>Kondisi Nominus, Battery health 87, Fullset, Face id truetone on </p>
     </article>
-    <article class="product-card" role="listitem" tabindex="0" aria-label="iPhone SE">
+    <article class="product-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="iPhone SE">
       <img src="13ibox.jpg" alt="iPhone 13" />
       <h4>iPhone 13 128 gb ibox Second Like New</h4>
       <p>Kondisi Nominus, Fullset, Garansi ON sampai 06/08/2026, Battery health 91, Face id truetone on</p>
@@ -613,27 +675,27 @@
 </section>
 
 <section id="advantages" aria-label="Advantages">
-  <h2 class="section-title">Mengapa Memilih Kami?
+  <h2 class="section-title scroll-slide slide-in-left">Mengapa Memilih Kami?
   </h2>
-  <p class="section-subtitle">
+  <p class="section-subtitle scroll-slide slide-in-right">
     Kami dipercaya ribuan pelanggan. Dapatkan pelayanan terbaik dan penawaran paling menguntungkan.</p>
   <div class="container features-grid" role="list">
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="Warranty">
+    <article class="feature-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="Warranty">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 11V5a1 1 0 011-1h14a1 1 0 011 1v6"></path><path d="M4 11v10a1 1 0 001 1h14a1 1 0 001-1V11"></path></svg>
       <h3>1 Bulan Garansi</h3>
       <p>Garansi Uang kembali jika ada kerusakan kecuali Human Error</p>
     </article>
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="Free Shipping">
+    <article class="feature-card scroll-slide slide-in-right" role="listitem" tabindex="0" aria-label="Free Shipping">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 9h18l-3 7H6l-3-7z"></path><circle cx="7.5" cy="17.5" r="1.5"></circle><circle cx="16.5" cy="17.5" r="1.5"></circle></svg>
       <h3>Transaksi COD dan Kirim lewat Online Shop</h3>
       <p>Bisa COD Sejabodetabek dan Bisa Rekber Melalui Online Shop Seperti Shopee, Tokopedia</p>
     </article>
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="Customer Support">
+    <article class="feature-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="Customer Support">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 8v4a8 8 0 0016 0V8"></path><path d="M3 8v4a8 8 0 0016 0V8"></path></svg>
       <h3>24/7 Support</h3>
       <p>Dapatkan bantuan kapan saja dari tim layanan pelanggan ahli kami.</p>
     </article>
-    <article class="feature-card" role="listitem" tabindex="0" aria-label="Secure Payment">
+    <article class="feature-card scroll-slide slide-in-right" role="listitem" tabindex="0" aria-label="Secure Payment">
       <svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="10" rx="2" ry="2"></rect><path d="M6 10v-3a6 6 0 0112 0v3"></path></svg>
       <h3>Pembayaran Aman</h3>
       <p>Pembayaran aman dan terenkripsi dengan berbagai pilihan.</p>
@@ -642,17 +704,17 @@
 </section>
 
 <section id="testimonials" aria-label="Customer Testimonials">
-  <h2 class="section-title">Testimonial</h2>
+  <h2 class="section-title scroll-slide slide-in-left">Testimonial</h2>
   <div class="testimonials">
-    <blockquote class="testimonial" tabindex="0" aria-label="Testimonial from Mia">
+    <blockquote class="testimonial scroll-slide slide-in-left" tabindex="0" aria-label="Testimonial from Mia">
       <p>"Saya suka iPhone 15 Pro! Kualitas kameranya luar biasa, dan baterainya tahan seharian. Pengirimannya juga cepat!"</p>
       <strong>-  Ahmad F.</strong>
     </blockquote>
-    <blockquote class="testimonial" tabindex="0" aria-label="Testimonial from Liam">
+    <blockquote class="testimonial scroll-slide slide-in-right" tabindex="0" aria-label="Testimonial from Liam">
       <p>"Layanan pelanggan yang luar biasa dan situs web yang mudah dinavigasi. Saya mendapatkan iPhone SE dengan harga yang luar biasa."</p>
       <strong>- Raihan A.</strong>
     </blockquote>
-    <blockquote class="testimonial" tabindex="0" aria-label="Testimonial from Sophia">
+    <blockquote class="testimonial scroll-slide slide-in-left" tabindex="0" aria-label="Testimonial from Sophia">
       <p>"Mantap Pelayanannya sangat ramah bisa COD atau diantar kerumah juga dan yang paling mantap harga masih bisa dinegosiasi</p>
       <strong>- Rina P.</strong>
     </blockquote>
@@ -660,10 +722,10 @@
 </section>
 
 <section id="pricing" aria-label="Pricing and Offers">
-  <h2 class="section-title">Paket Harga</h2>
-  <p class="section-subtitle">Pilih model dan paket yang sesuai dengan anggaran dan kebutuhan Anda.</p>
+  <h2 class="section-title scroll-slide slide-in-left">Paket Harga</h2>
+  <p class="section-subtitle scroll-slide slide-in-right">Pilih model dan paket yang sesuai dengan anggaran dan kebutuhan Anda.</p>
   <div class="pricing-cards" role="list">
-    <article class="pricing-card" role="listitem" tabindex="0" aria-label="iPhone 14 Pro Pricing">
+    <article class="pricing-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="iPhone 14 Pro Pricing">
       <h3>iPhone 13 ProMax Inter Like New</h3>
       <div class="price">Rp 8.500.000</div>
       <ul>
@@ -671,10 +733,10 @@
         <li>Garansi 1 bulan tukar unit kecuali Human Error</li>
         <li>Free Adaptor Charger Included</li>
       </ul>
-      <button class="btn-secondary" onclick="window.open('https://wa.me/2895624530402?text=Halo%20saya%20ingin%20membeli%20iPhone%20yang%20Anda%20tawarkan', '_blank')" aria-label="Beli iPhone via WhatsApp">Beli Sekarang</button>
+      <button class="btn-secondary" onclick="window.open('https://wa.me/62895624530402?text=Halo%20saya%20ingin%20membeli%20iPhone%20yang%20Anda%20tawarkan', '_blank')" aria-label="Beli iPhone via WhatsApp">Beli Sekarang</button>
 
     </article>
-    <article class="pricing-card" role="listitem" tabindex="0" aria-label="iPhone 15 pro Pricing">
+    <article class="pricing-card scroll-slide slide-in-right" role="listitem" tabindex="0" aria-label="iPhone 15 pro Pricing">
       <h3>iPhone 15 Pro ibox Like New</h3>
       <div class="price">Rp 15.000.000</div>
       <ul>
@@ -684,9 +746,8 @@
       </ul>
       <button class="btn-secondary" onclick="window.open('https://wa.me/62895624530402?text=Halo%20saya%20ingin%20membeli%20iPhone%20yang%20Anda%20tawarkan', '_blank')" aria-label="Beli iPhone via WhatsApp">Beli Sekarang</button>
 
-
     </article>
-    <article class="pricing-card" role="listitem" tabindex="0" aria-label="iPhone SE Pricing">
+    <article class="pricing-card scroll-slide slide-in-left" role="listitem" tabindex="0" aria-label="iPhone SE Pricing">
       <h3>iPhone 13 Ibox Like New</h3>
       <div class="price">Rp 7.500.000</div>
       <ul>
@@ -694,36 +755,33 @@
         <li>Garansi 1 bulan tukar unit kecuali Human Error</li>
         <li>Free Charger Included</li>
       </ul>
-      <button class="btn-secondary" onclick="window.open('https://wa.me/2895624530402?text=Halo%20saya%20ingin%20membeli%20iPhone%20yang%20Anda%20tawarkan', '_blank')" aria-label="Beli iPhone via WhatsApp">Beli Sekarang</button>
-
+      <button class="btn-secondary" onclick="window.open('https://wa.me/62895624530402?text=Halo%20saya%20ingin%20membeli%20iPhone%20yang%20Anda%20tawarkan', '_blank')" aria-label="Beli iPhone via WhatsApp">Beli Sekarang</button>
     </article>
   </div>
 </section>
 
-
 <section id="faq" aria-label="Frequently Asked Questions">
-  <h2 class="section-title">Frequently Asked Questions</h2>
+  <h2 class="section-title scroll-slide slide-in-left">Frequently Asked Questions</h2>
   <div class="faq-list">
-    <article class="faq-item" tabindex="0" aria-expanded="false" aria-controls="faq1" role="button">
+    <article class="faq-item scroll-slide slide-in-left" tabindex="0" aria-expanded="false" aria-controls="faq1" role="button">
       <div class="faq-question" id="faq1">Apakah dilengkapi dengan garansi?</div>
       <div class="faq-answer">Ya, setiap pembelian garansi selama 1 bulan diluar human error</div>
     </article>
-    <article class="faq-item" tabindex="0" aria-expanded="false" aria-controls="faq2" role="button">
+    <article class="faq-item scroll-slide slide-in-right" tabindex="0" aria-expanded="false" aria-controls="faq2" role="button">
       <div class="faq-question" id="faq2">Bisakah saya menukar ponsel lama saya?</div>
       <div class="faq-answer">Ya, kami menawarkan program tukar tambah untuk perangkat yang memenuhi syarat yang dapat membantu menurunkan harga iPhone baru.</div>
     </article>
-    <article class="faq-item" tabindex="0" aria-expanded="false" aria-controls="faq3" role="button">
+    <article class="faq-item scroll-slide slide-in-left" tabindex="0" aria-expanded="false" aria-controls="faq3" role="button">
       <div class="faq-question" id="faq3">Apa perbedaan iphone resmi dan inter?</div>
       <div class="faq-answer">Perbedaan utama adalah garansi dan legalitas IMEI. iPhone resmi punya garansi Apple Indonesia dan IMEI-nya terdaftar legal. iPhone "inter" tidak ada garansi resmi dan IMEI-nya berisiko diblokir.</div>
     </article>
   </div>
 </section>
 
-<section id="contact" class="final-cta" aria-label="Contact and Purchase Call to Action">
+<section id="contact" class="final-cta scroll-slide slide-in-up" aria-label="Contact and Purchase Call to Action">
   <h2>Ready to Upgrade?</h2>
   <p>Tukar iPhone lamamu dan dapatkan iPhone terbaru dengan harga spesial! Nilai tukar terbaik dan proses mudah hanya di sini.</p>
   <button class="btn-primary" onclick="window.open('https://wa.me/62895624530402?text=Halo%20saya%20ingin%20membeli%20iPhone%20yang%20Anda%20tawarkan', '_blank')" aria-label="Beli iPhone via WhatsApp">Upgrade iPhone Kamu Sekarang!</button>
-
 </section>
 
 <script>
@@ -743,6 +801,37 @@
         item.click();
       }
     });
+  });
+
+  // Scroll slide effect - Intersection Observer to toggle active class
+  document.addEventListener('DOMContentLoaded', () => {
+    const scrollElements = document.querySelectorAll('.scroll-slide');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15,
+    };
+
+    const elementInView = (el, threshold) => {
+      const elementTop = el.getBoundingClientRect().top;
+      return elementTop <= (window.innerHeight || document.documentElement.clientHeight) * (1 - threshold);
+    };
+
+    const observerCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Uncomment below if you want animation only once:
+          // observer.unobserve(entry.target);
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    scrollElements.forEach(el => observer.observe(el));
   });
 </script>
 <footer>
